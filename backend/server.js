@@ -25,13 +25,11 @@ app.get('/api/health', (req, res) => {
   res.json({ success: true, message: 'Team Task Manager API is running!', timestamp: new Date() });
 });
 
-// Serve frontend in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../frontend/dist')));
-  app.use((req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
-  });
-}
+// Serve frontend
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+});
 
 // Error handler
 app.use((err, req, res, next) => {
